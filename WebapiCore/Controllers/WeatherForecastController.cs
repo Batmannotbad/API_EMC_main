@@ -449,6 +449,35 @@ namespace WebapiCore.Controllers
                 return Ok(rt);
             }
         }
+        [HttpPost]
+        [Route("GetBlkTrungBinh")]
+        public async Task<IActionResult> GetBlkTrungBinh([FromBody] BangLuyKeTrungBinhRequest request)
+        {
+            var OBAL = new BAL.GetDataBAL(_dapper);
+            var dt = new Object();
+            if (TokenHelper.ValidationToken(request.Token))
+            {
+                int MonthMonitor = request.MonthMonitor;
+                int YearMonitor = request.YearMonitor;
+                int TinhDiaPhuong = request.TinhDiaPhuong;
+
+
+                var bangLuyKeRecords = await OBAL.GetBlkTrungBinh(MonthMonitor, YearMonitor, TinhDiaPhuong);
+
+                if (bangLuyKeRecords == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(bangLuyKeRecords);
+            }
+            else
+            {
+                ReturnCanhBao rt = new ReturnCanhBao();
+                rt.ThongTin = "Sai Token";
+                return Ok(rt);
+            }
+        }
         #endregion
         #region
         //[HttpPost]

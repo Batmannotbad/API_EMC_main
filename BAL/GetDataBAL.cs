@@ -948,7 +948,67 @@ namespace BAL
             var result = await _dapper.GetAllAsync<BangLuyKe>(query, parameters, commandType: CommandType.Text);
             return result;
         }
+        public async Task<IEnumerable<BangLuyKeTrungBinh>> GetBlkTrungBinh(int monthMonitor, int yearMonitor, int TinhDiaPhuong)
+        {
+            string query;
+            if(TinhDiaPhuong == 1 || TinhDiaPhuong == 2)
+            {
+                query = @"
+                   select
+                        sum(DVCTT_ToanTrinh_tab1) as DVCTT_ToanTrinh_tab1,
+                        sum(TTHC_tab1) as TTHC_tab1,
+                        sum(DVCTT_tab1) as DVCTT_tab1,           
+                        sum(SoHoSoTrucTuyen_tab2) as SoHoSoTrucTuyen_tab2,  
+                        sum(TongSoHoSo_tab2) as TongSoHoSo_tab2,
+                        sum(SoDVCTT_ToanTrinh_PhatSinhHoSo_tab3) as SoDVCTT_ToanTrinh_PhatSinhHoSo_tab3,          
+                        sum(SoDVCTT_PhatSinhHoSo_tab3) as SoDVCTT_PhatSinhHoSo_tab3,
+                        sum(SoTTHC_PhatSinhHoSo_tab3) as SoTTHC_PhatSinhHoSo_tab3,
+                        sum(TongDVCTTPhatSinhHoSo_tab3) as TongDVCTTPhatSinhHoSo_tab3,
+                        sum(SoHoSoDVCTT) as SoHoSoDVCTT,
+                        sum(NTT_DVCTT) as NTT_DVCTT,
+                        sum(TongHoSoDVCTT_ToanTrinh) as TongHoSoDVCTT_ToanTrinh
+                   from BangLuyKe
+                   inner join SiteW on SiteW.Id = BangLuyKe.SiteID
+                   where MonthMonitor = @monthMonitor
+                   and YearMonitor = @yearMonitor
+                   and SiteW.TinhDiaPhuong = @TinhDiaPhuong
+                        ";
+            }
+            else if(TinhDiaPhuong == 3)
+            {
+                query = $@"
+                       select
+                            sum(DVCTT_ToanTrinh_tab1) as DVCTT_ToanTrinh_tab1,
+                            sum(TTHC_tab1) as TTHC_tab1,
+                            sum(DVCTT_tab1) as DVCTT_tab1,           
+                            sum(SoHoSoTrucTuyen_tab2) as SoHoSoTrucTuyen_tab2,  
+                            sum(TongSoHoSo_tab2) as TongSoHoSo_tab2,
+                            sum(SoDVCTT_ToanTrinh_PhatSinhHoSo_tab3) as SoDVCTT_ToanTrinh_PhatSinhHoSo_tab3,          
+                            sum(SoDVCTT_PhatSinhHoSo_tab3) as SoDVCTT_PhatSinhHoSo_tab3,
+                            sum(SoTTHC_PhatSinhHoSo_tab3) as SoTTHC_PhatSinhHoSo_tab3,
+                            sum(TongDVCTTPhatSinhHoSo_tab3) as TongDVCTTPhatSinhHoSo_tab3,
+                            sum(SoHoSoDVCTT) as SoHoSoDVCTT,
+                            sum(NTT_DVCTT) as NTT_DVCTT,
+                            sum(TongHoSoDVCTT_ToanTrinh) as TongHoSoDVCTT_ToanTrinh
+                        from BangLuyKe
+                        inner join SiteW on SiteW.Id = BangLuyKe.SiteID
+                        where MonthMonitor = @monthMonitor
+                        and YearMonitor = @yearMonitor
+                        and SiteW.TinhDiaPhuong in (1,2)
+                ";
+            }
+            else
+            {
+                throw new ArgumentException("TinhDiaPhuong phải là 1, 2 hoặc 3.");
+            }
+            var parameters = new DynamicParameters();
+            parameters.Add("@MonthMonitor", monthMonitor, DbType.Int32);
+            parameters.Add("@YearMonitor", yearMonitor, DbType.Int32);
+            parameters.Add("@TinhDiaPhuong", TinhDiaPhuong, DbType.Int32);
 
+            var result = await _dapper.GetAllAsync<BangLuyKeTrungBinh>(query, parameters, commandType: CommandType.Text);
+            return result;
+        }
         public async Task<IEnumerable<BangLuyKe>> GetBlkTheoThang(int yearMonitor, int monthMonitor, int siteID)
         {
             string query;

@@ -145,6 +145,29 @@ namespace Utility.Object
         public int MonthMonitor { get; set; }
         public string Token { get; set; }
     }
+    public class BangLuyKeTrungBinh
+    {
+        public string DVCTT_ToanTrinh_tab1 { get; set; }
+        public string TTHC_tab1 { get; set; }
+        public string DVCTT_tab1 { get; set; }
+        public string SoHoSoTrucTuyen_tab2 {  get; set; }
+        public string TongSoHoSo_tab2 { get; set; }
+        public string SoDVCTT_ToanTrinh_PhatSinhHoSo_tab3 { get; set; }
+        public string SoDVCTT_PhatSinhHoSo_tab3 { get; set; }
+        public string SoTTHC_PhatSinhHoSo_tab3 { get; set; }
+        public string TongDVCTTPhatSinhHoSo_tab3 { get; set; }
+        public string SoHoSoDVCTT { get; set; }
+        public string NTT_DVCTT { get; set; }
+        public string TongHoSoDVCTT_ToanTrinh { get; set; }
+
+    }
+    public class BangLuyKeTrungBinhRequest
+    {
+        public int MonthMonitor { get; set; }
+        public int YearMonitor { get; set; }
+        public int TinhDiaPhuong { get; set; }
+        public string Token { get; set; }
+    }
     public class BangLuyKeTheoThangRequest
     {
         public int YearMonitor { get; set; }
