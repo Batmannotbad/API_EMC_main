@@ -487,7 +487,7 @@ namespace BAL
             parameters.Add("@YearMonitor", yearMonitor, DbType.Int32);
             parameters.Add("@TinhDiaPhuong", TinhDiaPhuong, DbType.Int32);
 
-            var result = await _dapper.GetAllAsync<Utility.Object.BangLuyKe>(query, parameters, commandType: CommandType.Text);
+            var result = await _dapper.GetAllAsync<Utility.Object.BangLuyKeKhongTVM>(query, parameters, commandType: CommandType.Text);
             return result;
         }
         // Lấy 1 chỉ số cho các đơn vị
@@ -1130,7 +1130,7 @@ namespace BAL
             parameters.Add("@SiteID", siteID, DbType.Int32);
 
 
-            var result = await _dapper.GetAllAsync<BangLuyKe>(query, parameters, commandType: CommandType.Text);
+            var result = await _dapper.GetAllAsync<BangLuyKeKhongTVM>(query, parameters, commandType: CommandType.Text);
             return result;
         }
 
