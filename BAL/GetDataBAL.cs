@@ -117,6 +117,7 @@ namespace BAL
             TongHoSoDVCTT_ToanTrinh,
             MonthMonitor,
             YearMonitor,
+            DVC_DuDieuKien,
             SiteW.Name AS SiteName
         FROM 
             BangLuyKe
@@ -154,6 +155,7 @@ namespace BAL
             TongHoSoDVCTT_ToanTrinh,
             MonthMonitor,
             YearMonitor,
+            DVC_DuDieuKien,
             SiteW.Name AS SiteName
         FROM 
             BangLuyKe
@@ -190,6 +192,7 @@ namespace BAL
             TongHoSoDVCTT_ToanTrinh,
             MonthMonitor,
             YearMonitor,
+            DVC_DuDieuKien,
             SiteW.Name AS SiteName
         FROM 
             BangLuyKe
@@ -226,6 +229,7 @@ namespace BAL
             TongHoSoDVCTT_ToanTrinh,
             MonthMonitor,
             YearMonitor,
+            DVC_DuDieuKien,
             SiteW.Name AS SiteName
         FROM 
             BangLuyKe
@@ -261,6 +265,7 @@ namespace BAL
              TongHoSoDVCTT_ToanTrinh,
              MonthMonitor,
              YearMonitor,
+             DVC_DuDieuKien,
              stw.Name AS SiteName,
              bvm.TenVungMien
          FROM 
@@ -298,6 +303,7 @@ namespace BAL
              TongHoSoDVCTT_ToanTrinh,
              MonthMonitor,
              YearMonitor,
+             DVC_DuDieuKien,
              stw.Name AS SiteName,
              bvm.TenVungMien
          FROM 
@@ -317,7 +323,7 @@ namespace BAL
             var result = await _dapper.GetAllAsync<Utility.Object.BangLuyKe>(query, parameters, commandType: CommandType.Text);
             return result;
         }
-        public async Task<IEnumerable<Utility.Object.BangLuyKe>> GetBLK_TheoQuy(int LayQuy, int yearMonitor, int TinhDiaPhuong)
+        public async Task<IEnumerable<Utility.Object.BangLuyKeKhongTVM>> GetBLK_TheoQuy(int LayQuy, int yearMonitor, int TinhDiaPhuong)
         {
             var query = "";
             var month1 = 0;
@@ -340,6 +346,7 @@ namespace BAL
                             TongHoSoDVCTT_ToanTrinh,
                             MonthMonitor,
                             YearMonitor,
+                            DVC_DuDieuKien,
                             SiteW.Name AS SiteName
                         FROM 
                             BangLuyKe
@@ -371,7 +378,9 @@ namespace BAL
                 select 
                             DVCTT_ToanTrinh_tab1,
                             TTHC_tab1,
-                            DVCTT_tab1, 
+                            DVCTT_tab1,
+                            DVC_DuDieuKien,
+
                 SoHoSoTrucTuyen_tab2 - (select SoHoSoTrucTuyen_tab2 
                                 FROM 
                                    BangLuyKe as blk1
@@ -535,6 +544,7 @@ namespace BAL
             TongHoSoDVCTT_ToanTrinh,
             MonthMonitor,
             YearMonitor,
+            DVC_DuDieuKien,
             SiteW.Name AS SiteName
         FROM 
             BangLuyKe
@@ -549,6 +559,7 @@ namespace BAL
                 query = @"
         SELECT 
             blk2.DVCTT_ToanTrinh_tab1,
+            blk2.DVC_DuDieuKien,
             blk2.TTHC_tab1,
             blk2.DVCTT_tab1, 
             blk2.SoHoSoTrucTuyen_tab2 - 
@@ -687,6 +698,7 @@ namespace BAL
             MonthMonitor,
             YearMonitor,
             stw.Name AS SiteName,
+            DVC_DuDieuKien,
             bvm.TenVungMien
         FROM 
             BangLuyKe as blk
@@ -702,6 +714,7 @@ namespace BAL
                 query = @"
         SELECT
             DVCTT_ToanTrinh_tab1,
+            DVC_DuDieuKien,
             TTHC_tab1,
             DVCTT_tab1,
             SoHoSoTrucTuyen_tab2 - (SELECT SoHoSoTrucTuyen_tab2 
@@ -838,6 +851,7 @@ namespace BAL
                 TongHoSoDVCTT_ToanTrinh,
                 MonthMonitor,
                 YearMonitor,
+                DVC_DuDieuKien,
                 stw.Name AS SiteName,
                 bvm.TenVungMien
             FROM 
@@ -854,6 +868,7 @@ namespace BAL
                 query = $@"
                    SELECT
                 DVCTT_ToanTrinh_tab1,
+                DVC_DuDieuKien,
                 TTHC_tab1,
                 DVCTT_tab1,
                 SoHoSoTrucTuyen_tab2 - (SELECT SoHoSoTrucTuyen_tab2 FROM BangLuyKe as blk2
@@ -966,7 +981,8 @@ namespace BAL
                         sum(TongDVCTTPhatSinhHoSo_tab3) as TongDVCTTPhatSinhHoSo_tab3,
                         sum(SoHoSoDVCTT) as SoHoSoDVCTT,
                         sum(NTT_DVCTT) as NTT_DVCTT,
-                        sum(TongHoSoDVCTT_ToanTrinh) as TongHoSoDVCTT_ToanTrinh
+                        sum(TongHoSoDVCTT_ToanTrinh) as TongHoSoDVCTT_ToanTrinh,
+                        sum(DVC_DuDieuKien) as DVC_DuDieuKien
                    from BangLuyKe
                    inner join SiteW on SiteW.Id = BangLuyKe.SiteID
                    where MonthMonitor = @monthMonitor
@@ -989,7 +1005,8 @@ namespace BAL
                             sum(TongDVCTTPhatSinhHoSo_tab3) as TongDVCTTPhatSinhHoSo_tab3,
                             sum(SoHoSoDVCTT) as SoHoSoDVCTT,
                             sum(NTT_DVCTT) as NTT_DVCTT,
-                            sum(TongHoSoDVCTT_ToanTrinh) as TongHoSoDVCTT_ToanTrinh
+                            sum(TongHoSoDVCTT_ToanTrinh) as TongHoSoDVCTT_ToanTrinh,
+                            sum(DVC_DuDieuKien) as DVC_DuDieuKien
                         from BangLuyKe
                         inner join SiteW on SiteW.Id = BangLuyKe.SiteID
                         where MonthMonitor = @monthMonitor
@@ -1009,7 +1026,7 @@ namespace BAL
             var result = await _dapper.GetAllAsync<BangLuyKeTrungBinh>(query, parameters, commandType: CommandType.Text);
             return result;
         }
-        public async Task<IEnumerable<BangLuyKe>> GetBlkTheoThang(int yearMonitor, int monthMonitor, int siteID)
+        public async Task<IEnumerable<BangLuyKeKhongTVM>> GetBlkTheoThang(int yearMonitor, int monthMonitor, int siteID)
         {
             string query;
 
@@ -1031,6 +1048,7 @@ namespace BAL
                         TongHoSoDVCTT_ToanTrinh,
                         MonthMonitor,
                         YearMonitor,
+                        DVC_DuDieuKien,
                         SiteW.Name AS SiteName
                     FROM 
                         BangLuyKe
@@ -1045,6 +1063,7 @@ namespace BAL
                 query = $@"
                    SELECT 
                         blk2.DVCTT_ToanTrinh_tab1,
+                        blk2.DVC_DuDieuKien,
                         blk2.TTHC_tab1,
                         blk2.DVCTT_tab1, 
                         blk2.SoHoSoTrucTuyen_tab2 - 

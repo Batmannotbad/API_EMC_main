@@ -68,6 +68,30 @@ namespace Utility.Object
         public int YearMonitor { get; set; }
         public string SiteName { get; set; }
         public string TenVungMien { get; set; }
+        public string DVC_DuDieuKien { get; set; }
+
+    }
+    public class BangLuyKeKhongTVM
+    {
+        public int DVCTT_ToanTrinh_tab1 { get; set; }
+        public int TTHC_tab1 { get; set; }
+        public int DVCTT_tab1 { get; set; }
+        //public string SoHoSoTrucTiep_tab2 { get; set; }
+        public int SoHoSoTrucTuyen_tab2 { get; set; }
+        public int TongSoHoSo_tab2 { get; set; }
+        public int SoDVCTT_ToanTrinh_PhatSinhHoSo_tab3 { get; set; }
+        //public int SoTTHC_DuaLen_DVCTT_ToanTrinh_CoHoSo_tab3 { get; set; }
+        public int SoDVCTT_PhatSinhHoSo_tab3 { get; set; }
+        public int SoTTHC_PhatSinhHoSo_tab3 { get; set; }
+        public int TongDVCTTPhatSinhHoSo_tab3 { get; set; }
+        public int SoHoSoDVCTT { get; set; }
+        public int NTT_DVCTT { get; set; }
+        public int TongHoSoDVCTT_ToanTrinh { get; set; }
+        public int MonthMonitor { get; set; }
+        public int YearMonitor { get; set; }
+        public string SiteName { get; set; }
+        public string DVC_DuDieuKien { get; set; }
+
     }
     public class TheoQuy
     {
@@ -159,6 +183,7 @@ namespace Utility.Object
         public string SoHoSoDVCTT { get; set; }
         public string NTT_DVCTT { get; set; }
         public string TongHoSoDVCTT_ToanTrinh { get; set; }
+        public string DVC_DuDieuKien { get; set; }
 
     }
     public class BangLuyKeTrungBinhRequest
